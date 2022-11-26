@@ -29,7 +29,7 @@ class GameScene: SKScene {
         cellNodes = Array(repeating: [], count: columns)
         for column in (0..<columns) {
             for row in (0..<rows) {
-                let cell = CellNode()
+                let cell = CellNode(livingColor: .white, deadColor: .black)
                 cell.anchorPoint = .zero
                 cell.color = .black
 
