@@ -35,8 +35,8 @@ class GameViewController: UIViewController {
         view.addSubview(sceneView)
         NSLayoutConstraint.activate([
             sceneView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
-            sceneView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            sceneView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            sceneView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            sceneView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
         ])
 
