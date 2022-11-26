@@ -10,7 +10,7 @@ class GameScene: SKScene {
     private var columns = 0
     private var rows = 0
     private var cellNodes = [[CellNode]]()
-    private var livingCells = Set<LivingCell>()
+    private var livingCells = Set<CellPosition>()
 
     // MARK: - Lifecycle
 
@@ -51,7 +51,7 @@ class GameScene: SKScene {
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
 
-        var newLivingCells = Set<LivingCell>()
+        var newLivingCells = Set<CellPosition>()
 
         for column in (0..<columns) {
             for row in (0..<rows) {
@@ -59,9 +59,9 @@ class GameScene: SKScene {
                 let livingNeighbors = countLivingNeighbors(column: column, row: row)
 
                 if cell.isLiving, [2, 3].contains(livingNeighbors) {
-                    newLivingCells.insert(LivingCell(x: column, y: row))
+                    newLivingCells.insert(CellPosition(column: column, row: row))
                 } else if !cell.isLiving, livingNeighbors == 3 {
-                    newLivingCells.insert(LivingCell(x: column, y: row))
+                    newLivingCells.insert(CellPosition(column: column, row: row))
                 }
             }
         }
@@ -78,7 +78,7 @@ class GameScene: SKScene {
                 // Don't count self.
                 if x == 0, y == 0 { continue }
 
-                if livingCells.contains(LivingCell(x: column + x, y: row + y)) {
+                if livingCells.contains(CellPosition(column: column + x, row: row + y)) {
                     livingNeighbors += 1
                 }
             }
@@ -86,30 +86,30 @@ class GameScene: SKScene {
         return livingNeighbors
     }
 
-    private func updateLivingCells(newCells: Set<LivingCell>) {
+    private func updateLivingCells(newCells: Set<CellPosition>) {
         // Updating cells that are still alive is redundant. Only update those that have changed state.
         let dyingCells = livingCells.subtracting(newCells)
         let bornCells = newCells.subtracting(livingCells)
         livingCells = newCells
 
         for dyingCell in dyingCells {
-            cellNodes[dyingCell.x][dyingCell.y].isLiving = false
+            cellNodes[dyingCell.column][dyingCell.row].isLiving = false
         }
 
         for bornCell in bornCells {
-            cellNodes[bornCell.x][bornCell.y].isLiving = true
+            cellNodes[bornCell.column][bornCell.row].isLiving = true
         }
     }
 
-    private func createInitialCells(columnCount: Int, rowCount: Int, fillPercentage: Int) -> Set<LivingCell> {
+    private func createInitialCells(columnCount: Int, rowCount: Int, fillPercentage: Int) -> Set<CellPosition> {
         let totalCells = columnCount * rowCount
         let numberOfLivingCells = Int(Double(totalCells) * Double(fillPercentage) / 100)
 
-        var livingCells = Set<LivingCell>()
+        var livingCells = Set<CellPosition>()
         repeat {
-            let xPos = Int.random(in: 0..<columnCount)
-            let yPos = Int.random(in: 0..<rowCount)
-            livingCells.insert(LivingCell(x: xPos, y: yPos))
+            let column = Int.random(in: 0..<columnCount)
+            let row = Int.random(in: 0..<rowCount)
+            livingCells.insert(CellPosition(column: column, row: row))
         } while (livingCells.count <= numberOfLivingCells)
 
         return livingCells

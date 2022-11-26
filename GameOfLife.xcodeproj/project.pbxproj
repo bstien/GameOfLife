@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68AE07CD549DA8C4A6868891 /* LivingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE0E3F685CA974C3E5C806 /* LivingCell.swift */; };
+		68AE07CD549DA8C4A6868891 /* CellPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE0E3F685CA974C3E5C806 /* CellPosition.swift */; };
 		68AE0C01EFB2A3DE8E4A9E67 /* CellNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AE06C305D64DC669FA7B76 /* CellNode.swift */; };
 		82C758652932450D0083AEF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C758642932450D0083AEF5 /* AppDelegate.swift */; };
 		82C7586B2932450D0083AEF5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C7586A2932450D0083AEF5 /* GameScene.swift */; };
@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		68AE06C305D64DC669FA7B76 /* CellNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellNode.swift; sourceTree = "<group>"; };
-		68AE0E3F685CA974C3E5C806 /* LivingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LivingCell.swift; sourceTree = "<group>"; };
+		68AE0E3F685CA974C3E5C806 /* CellPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPosition.swift; sourceTree = "<group>"; };
 		82C758612932450D0083AEF5 /* GameOfLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameOfLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82C758642932450D0083AEF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82C7586A2932450D0083AEF5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 				82C7586C2932450D0083AEF5 /* GameViewController.swift */,
 				82C758712932450E0083AEF5 /* Assets.xcassets */,
 				82C758732932450E0083AEF5 /* LaunchScreen.storyboard */,
-				68AE0E3F685CA974C3E5C806 /* LivingCell.swift */,
+				68AE0E3F685CA974C3E5C806 /* CellPosition.swift */,
 				68AE06C305D64DC669FA7B76 /* CellNode.swift */,
 			);
 			path = GameOfLife;
@@ -141,7 +141,7 @@
 				82C7586B2932450D0083AEF5 /* GameScene.swift in Sources */,
 				82C7586D2932450D0083AEF5 /* GameViewController.swift in Sources */,
 				82C758652932450D0083AEF5 /* AppDelegate.swift in Sources */,
-				68AE07CD549DA8C4A6868891 /* LivingCell.swift in Sources */,
+				68AE07CD549DA8C4A6868891 /* CellPosition.swift in Sources */,
 				68AE0C01EFB2A3DE8E4A9E67 /* CellNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
