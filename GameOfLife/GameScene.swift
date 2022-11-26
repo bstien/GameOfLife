@@ -24,17 +24,21 @@ class GameScene: SKScene {
         rows = Int(floor(viewPort.height / cellSize))
 
         let colOuterPadding = viewPort.height.truncatingRemainder(dividingBy: cellSize) / 2
-        let rowOuterPadding = viewPort.width.truncatingRemainder(dividingBy: cellSize)
+        let rowOuterPadding = viewPort.width.truncatingRemainder(dividingBy: cellSize) / 2
 
         cellNodes = Array(repeating: [], count: columns)
-        let sideSize = cellSize - (padding * 2)
         for column in (0..<columns) {
             for row in (0..<rows) {
-                let cellPosition = CellPosition(column: column, row: row)
-                let cell = CellNode(cellPosition: cellPosition, livingColor: .white, deadColor: .black)
-                cell.anchorPoint = .zero
+                let cell = CellNode(
+                    cellPosition: CellPosition(column: column, row: row),
+                    backgroundColor: .secondarySystemBackground,
+                    padding: padding,
+                    livingColor: .white,
+                    deadColor: .black
+                )
 
-                cell.size = CGSize(width: sideSize, height: sideSize)
+                cell.anchorPoint = .zero
+                cell.size = CGSize(width: cellSize, height: cellSize)
                 cell.position = CGPoint(
                     x: (CGFloat(column) * cellSize) + rowOuterPadding,
                     y: (CGFloat(row) * cellSize) + colOuterPadding
