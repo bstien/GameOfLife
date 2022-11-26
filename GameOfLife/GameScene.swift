@@ -70,6 +70,16 @@ class GameScene: SKScene {
         updateLivingCells(newCells: newLivingCells)
     }
 
+    // MARK: - Overrides
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touches.forEach { rebirthCell(at: $0.location(in: self)) }
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        touches.forEach { rebirthCell(at: $0.location(in: self)) }
+    }
+
     // MARK: - Private methods
 
     private func countLivingNeighbors(column: Int, row: Int) -> Int {
@@ -100,6 +110,12 @@ class GameScene: SKScene {
         for bornCell in bornCells {
             cellNodes[bornCell.column][bornCell.row].isLiving = true
         }
+    }
+
+    private func rebirthCell(at point: CGPoint) {
+        guard let cell = atPoint(point) as? CellNode, !cell.isLiving else { return }
+        cell.isLiving = true
+        livingCells.insert(cell.cellPosition)
     }
 
     private func createInitialCells(columnCount: Int, rowCount: Int, fillPercentage: Int) -> Set<CellPosition> {
