@@ -12,16 +12,16 @@ class GameViewController: UIViewController {
 
     // MARK: - Private properties
 
-    private lazy var sceneView: SKView = {
-        let view = SKView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    private var sceneView: SKView? {
+        view as? SKView
+    }
 
     // MARK: - Lifecycle
 
     override func loadView() {
         super.loadView()
+        view = SKView()
+        view.bounds = UIScreen.main.bounds
     }
 
     override func viewDidLoad() {
@@ -32,27 +32,14 @@ class GameViewController: UIViewController {
     // MARK: - Setup
 
     private func setup() {
-        view.addSubview(sceneView)
-        NSLayoutConstraint.activate([
-            sceneView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
-            sceneView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            sceneView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
-            sceneView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
-        ])
+        let scene = GameScene(size: view.bounds.size)
+        scene.scaleMode = .fill
 
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-
-        DispatchQueue.main.async {
-            let scene = GameScene(size: self.sceneView.bounds.size)
-            scene.scaleMode = .fill
-
-            // Present the scene
-            self.sceneView.presentScene(scene)
-            self.sceneView.ignoresSiblingOrder = true
-            self.sceneView.showsFPS = true
-            self.sceneView.showsNodeCount = true
-            self.sceneView.preferredFramesPerSecond = 20
-        }
+        // Present the scene
+        sceneView?.presentScene(scene)
+        sceneView?.ignoresSiblingOrder = true
+        sceneView?.showsFPS = true
+        sceneView?.showsNodeCount = true
+        sceneView?.preferredFramesPerSecond = 20
     }
 }
