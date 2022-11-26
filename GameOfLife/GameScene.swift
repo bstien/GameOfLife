@@ -23,8 +23,8 @@ class GameScene: SKScene {
         columns = Int(floor(viewPort.width / cellSize))
         rows = Int(floor(viewPort.height / cellSize))
 
-        let colOuterPadding = viewPort.width.truncatingRemainder(dividingBy: cellSize) / 2
-        let rowOuterPadding = viewPort.height.truncatingRemainder(dividingBy: cellSize) / 2
+        let colOuterPadding = viewPort.height.truncatingRemainder(dividingBy: cellSize) / 2
+        let rowOuterPadding = viewPort.width.truncatingRemainder(dividingBy: cellSize)
 
         cellNodes = Array(repeating: [], count: columns)
         let sideSize = cellSize - (padding * 2)
@@ -35,8 +35,8 @@ class GameScene: SKScene {
 
                 cell.size = CGSize(width: sideSize, height: sideSize)
                 cell.position = CGPoint(
-                    x: (CGFloat(column) * cellSize) + colOuterPadding,
-                    y: (CGFloat(row) * cellSize) + rowOuterPadding
+                    x: (CGFloat(column) * cellSize) + rowOuterPadding,
+                    y: (CGFloat(row) * cellSize) + colOuterPadding
                 )
 
                 cellNodes[column].append(cell)
