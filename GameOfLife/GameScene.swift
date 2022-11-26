@@ -87,6 +87,7 @@ class GameScene: SKScene {
     }
 
     private func updateLivingCells(newCells: Set<LivingCell>) {
+        // Updating cells that are still alive is redundant. Only update those that have changed state.
         let dyingCells = livingCells.subtracting(newCells)
         let bornCells = newCells.subtracting(livingCells)
         livingCells = newCells
