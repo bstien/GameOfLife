@@ -30,7 +30,8 @@ class GameScene: SKScene {
         let sideSize = cellSize - (padding * 2)
         for column in (0..<columns) {
             for row in (0..<rows) {
-                let cell = CellNode(livingColor: .white, deadColor: .black)
+                let cellPosition = CellPosition(column: column, row: row)
+                let cell = CellNode(cellPosition: cellPosition, livingColor: .white, deadColor: .black)
                 cell.anchorPoint = .zero
 
                 cell.size = CGSize(width: sideSize, height: sideSize)
