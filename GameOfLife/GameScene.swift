@@ -5,6 +5,8 @@ class GameScene: SKScene {
 
     // MARK: - Private properties
 
+    private let cellSize: CGFloat = 5
+    private let padding: CGFloat = 1
     private var columns = 0
     private var rows = 0
     private var cellNodes = [[CellNode]]()
@@ -17,8 +19,6 @@ class GameScene: SKScene {
         backgroundColor = .secondarySystemBackground
 
         let viewPort = view.bounds.inset(by: view.safeAreaInsets)
-        let cellSize: CGFloat = 5
-        let padding: CGFloat = 1
 
         columns = Int(floor(viewPort.width / cellSize))
         rows = Int(floor(viewPort.height / cellSize))
