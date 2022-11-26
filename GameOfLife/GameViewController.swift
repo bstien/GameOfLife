@@ -52,6 +52,7 @@ class GameViewController: UIViewController {
             self.sceneView.ignoresSiblingOrder = true
             self.sceneView.showsFPS = true
             self.sceneView.showsNodeCount = true
+            self.sceneView.preferredFramesPerSecond = 20
         }
     }
 }
