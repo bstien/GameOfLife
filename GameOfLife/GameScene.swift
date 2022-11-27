@@ -5,8 +5,8 @@ class GameScene: SKScene {
 
     // MARK: - Private properties
 
-    private let cellSize: CGFloat = 5
-    private let padding: CGFloat = 1
+    private let cellSize: CGFloat = 8
+    private let padding: CGFloat = 2
     private var columns = 0
     private var rows = 0
     private var cellNodes = [[CellNode]]()
