@@ -7,6 +7,7 @@ class GameScene: SKScene {
 
     private let cellSize: CGFloat = 8
     private let padding: CGFloat = 2
+    private let dispatchQueue = DispatchQueue(label: "cellUpdate", qos: .userInitiated, attributes: .concurrent)
     private var columns = 0
     private var rows = 0
     private var cellNodes = [[CellNode]]()
@@ -57,21 +58,34 @@ class GameScene: SKScene {
         super.update(currentTime)
 
         var newLivingCells = Set<CellPosition>()
-
+        let group = DispatchGroup()
+        let currentLivingCells = livingCells
+        let lock = NSLock()
         for column in (0..<columns) {
             for row in (0..<rows) {
-                let cell = cellNodes[column][row]
-                let livingNeighbors = countLivingNeighbors(column: column, row: row)
+                group.enter()
+                dispatchQueue.async { [weak self] in
+                    defer { group.leave() }
 
-                if cell.isLiving, [2, 3].contains(livingNeighbors) {
-                    newLivingCells.insert(CellPosition(column: column, row: row))
-                } else if !cell.isLiving, livingNeighbors == 3 {
-                    newLivingCells.insert(CellPosition(column: column, row: row))
+                    guard let self = self else { return }
+
+                    let cell = self.cellNodes[column][row]
+                    let livingNeighbors = self.countLivingNeighbors(column: column, row: row, livingCells: currentLivingCells)
+
+                    lock.lock()
+                    if cell.isLiving, [2, 3].contains(livingNeighbors) {
+                        newLivingCells.insert(CellPosition(column: column, row: row))
+                    } else if !cell.isLiving, livingNeighbors == 3 {
+                        newLivingCells.insert(CellPosition(column: column, row: row))
+                    }
+                    lock.unlock()
                 }
             }
         }
 
-        updateLivingCells(newCells: newLivingCells)
+        group.notify(queue: .main, execute: { [weak self] in
+            self?.updateLivingCells(newCells: newLivingCells)
+        })
     }
 
     // MARK: - Overrides
@@ -86,7 +100,7 @@ class GameScene: SKScene {
 
     // MARK: - Private methods
 
-    private func countLivingNeighbors(column: Int, row: Int) -> Int {
+    private func countLivingNeighbors(column: Int, row: Int, livingCells: Set<CellPosition>) -> Int {
         var livingNeighbors = 0
         for x in (-1...1) {
             for y in (-1...1) {
@@ -123,7 +137,6 @@ class GameScene: SKScene {
 
     private func rebirthCell(at point: CGPoint) {
         guard let cell = atPoint(point) as? CellNode, !cell.isLiving else { return }
-        cell.isLiving = true
         livingCells.insert(cell.cellPosition)
     }
 
