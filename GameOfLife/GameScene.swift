@@ -96,6 +96,11 @@ class GameScene: SKScene {
                 if livingCells.contains(CellPosition(column: column + x, row: row + y)) {
                     livingNeighbors += 1
                 }
+
+                // No need to count more neighbors than 4. Those cells will either die or not be rebirthed.
+                if livingNeighbors >= 4 {
+                    return livingNeighbors
+                }
             }
         }
         return livingNeighbors
