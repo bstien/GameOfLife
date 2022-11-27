@@ -18,7 +18,7 @@ class GameScene: SKScene {
         super.didMove(to: view)
         backgroundColor = .secondarySystemBackground
 
-        let viewPort = view.bounds.inset(by: view.safeAreaInsets)
+        let viewPort = view.bounds.inset(by: view.safeAreaInsets).size
 
         columns = Int(floor(viewPort.width / cellSize))
         rows = Int(floor(viewPort.height / cellSize))
@@ -40,8 +40,8 @@ class GameScene: SKScene {
                 cell.anchorPoint = .zero
                 cell.size = CGSize(width: cellSize, height: cellSize)
                 cell.position = CGPoint(
-                    x: (CGFloat(column) * cellSize) + rowOuterPadding,
-                    y: (CGFloat(row) * cellSize) + colOuterPadding
+                    x: (CGFloat(column) * cellSize) + rowOuterPadding + view.safeAreaInsets.right,
+                    y: (CGFloat(row) * cellSize) + colOuterPadding + view.safeAreaInsets.bottom
                 )
 
                 cellNodes[column].append(cell)
