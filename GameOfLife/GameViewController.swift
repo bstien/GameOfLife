@@ -29,14 +29,19 @@ class GameViewController: UIViewController {
         setup()
     }
 
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+
+        if let sceneView = sceneView, sceneView.scene == nil {
+            let scene = GameScene(size: view.bounds.size)
+            scene.scaleMode = .fill
+            sceneView.presentScene(scene)
+        }
+    }
+
     // MARK: - Setup
 
     private func setup() {
-        let scene = GameScene(size: view.bounds.size)
-        scene.scaleMode = .fill
-
-        // Present the scene
-        sceneView?.presentScene(scene)
         sceneView?.ignoresSiblingOrder = true
         sceneView?.showsFPS = true
         sceneView?.showsNodeCount = true
